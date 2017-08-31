@@ -4,3 +4,4 @@ plotnine
 matplotlib
 sklearn
 firefly-python
+ipykernel
