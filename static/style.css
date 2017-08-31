@@ -2,77 +2,83 @@
   box-sizing: border-box;
 }
 
-html { font-size: 14px; }
-
-body { width:87.5%;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 5%;
-      padding-top: 5rem;
-      padding-bottom: 5rem;
-      font-family: "Palatino", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-      background-color: whitesmoke;
-      color: #111;
-      max-width: 1400px;
-      text-rendering: optimizeLegibility;
+html { 
+  font-size: 14px; 
 }
 
-h1 { font-weight: 600;
-    margin-top: 4rem;
-    margin-bottom: 1.5rem;
-    font-size: 2.5rem;
-    line-height: 1; }
-
-h2 { font-style: normal;
-    font-weight: 600;
-    margin-top: 2.5rem;
-    margin-bottom: 0;
-    font-size: 1.8rem;
-    line-height: 1; }
-
-h3 { font-style: normal;
-    font-weight: 600;
-    font-size: 1.4rem;
-    margin-top: 2.5rem;
-    margin-bottom: 0;
-    line-height: 1; }
-
-p, ol, ul { font-size: 1.4rem;  }
-
-p { line-height: 2rem;
-   margin-top: 1.4rem;
-   margin-bottom: 1.4rem;
-   padding-right: 0;
-   vertical-align: baseline; }
-
-ol, ul { 
-  line-height: 1.5rem;
-  width: 80%;
+body { 
+  width: 87.5%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  font-family: "Palatino", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  background-color: whitesmoke;
+  color: #111;
+  /* max-width: 1400px; */
+  text-rendering: optimizeLegibility;
 }
 
-li { padding: 0.5rem 0; }
-
-p, code, table{
- width: 65%;
+h1 { 
+  font-style: normal;  
+  font-weight: 700;
+  line-height: 1; 
+  font-size: 2rem;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
 }
 
+h2 { 
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 1; 
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+}
 
-pre {
-white-space: pre-wrap;
-/* background-color: #222;
-color: whitesmoke; */
-padding: 0.5rem;
+h3 { 
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  margin-top: 2.0rem;
+  margin-bottom: 0.5rem;
+}
+
+h4, h5 { 
+  font-family: Consolas, Menlo, Courier, monospace;  
+  font-style: normal; 
+  font-weight: normal;
+  font-size: 0.8rem;
+  line-height: 1.5;  
+  margin-top: 0;
+  margin-bottom: 0;
+  white-space: pre-wrap;  
+}
+
+p { 
+  font-style: normal; 
+  font-size: 1rem;  
+  line-height: 1.45;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-right: 0;
+  vertical-align: baseline; 
 }
 
 blockquote { 
-  font-style: italic;
-  font-size: 1.4rem;
   padding-left: 1rem;
-  border-left: Solid 5px grey;
+  border-left: Solid 4px grey;
   margin-left: 0;
  }
 
-blockquote p { width: 65%; }
+blockquote p { 
+ font-style: italic;
+ font-size: 1rem;
+ line-height: 1.5;  
+} 
 
 a {
  color: #111;
@@ -81,38 +87,79 @@ a {
  padding-bottom: 1px;
 }
 
-img { max-width: 100%; }
+ol, ul { 
+  line-height: 1.5;
+  width: 80%;
+  margin: 0;
+  padding: 0.5rem 0rem 0.5rem 1.5rem;
+}
 
-h5 { float: right;
-    clear: right;
-    width: 30%;
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 1rem;
-    font-weight: normal;
-    line-height: 1.3;
-    vertical-align: baseline;
-    position: relative; }
+li { 
+  font-style: normal; 
+  font-size: 1rem;  
+  line-height: 1.5;
+  padding: 0.1rem 0; 
+}
 
+pre {
+  white-space: pre-wrap;
+  margin-left: 2.5%;
+  padding-bottom: 0.5rem;
+}
 
-table, code, h5 {
- font-family: Consolas, Menlo, Courier, monospace;
- font-size: 1.125rem;
- line-height: 1.6;
+code {
+  font-family: Consolas, Menlo, Courier, monospace;
+  font-size: 0.7rem;
+  line-height: 1.4;
 }
 
 
+img, svg { 
+  max-width: 100%; 
+}
+
+
+table {
+ font-family: Consolas, Menlo, Courier, monospace;
+ font-size: 0.7rem;
+ border: 0;
+ border-collapse: collapse; 
+}
+
 th, td {
-   padding: 0.5rem;
-   text-align: left;
-   border-bottom: 1px solid #AAAAAA;
+  padding: 0.1rem;
+  text-align: right;
+  border: 0;
+}
+
+tbody {
+  border-top: 1px solid #AAAAAA;   
+  border-bottom: 1px solid #AAAAAA;   
 }
 
 .vega-embed {
  margin: 2.5rem 0;
 }
 
-@media (max-width: 960px) {
-         h5 { float: none; width: 90%;}
-         p, pre, code { width: 90%; }
-       }
+@media (min-width: 48em) {
+  html {font-size: 16 px;}
+  body {padding-left: 5%;}
+  p, pre, ol, ul { width: 65%; }
+  h4, h5 {
+    float: right;
+    clear: right;
+    width: 30%;
+    vertical-align: baseline;
+    position: relative;
+  }
+  th, td {
+    padding: 0.3rem 0.5rem;
+  }
+
+@media (min-width: 56em) {
+  html {font-size: 18px;}
+}
+
+@media (min-width: 80em) {
+  html {font-size: 20px;}
+}

@@ -1,19 +1,17 @@
 
 # The Art of Data Science
 
-## Build & Deploy ML Models in Cloud
+> “Jack of all trades, master of none, though oft times better than master of one."
 
-** Motivation for the Session**
+** Motivation**
 
 - Solve a business problem
 - Understand the end-to-end approach
 - Build a data-driven Machine Learning application on the cloud
 
-##### For code, go to [https://github.com/amitkaps/datascience](https://github.com/amitkaps/datascience)
+#### For code, go to [https://github.com/amitkaps/datascience](https://github.com/amitkaps/datascience)
 
 ** Our approach ** is to take a case-driven example to showcase this. And we will aim to go-wide vs. go-deep to do so. The approach will be both practical and scalable. Lets start by understanding the overall steps involved in building a data-driven application.
-
-<br>
 
 
 
@@ -38,9 +36,7 @@ A start-up providing loans to the consumer and has been running for the last few
 - **Predictive**: Make a prediction
 - **Causal**: Establish a causal link
 
-**Our Question: What is the probability of a loan default?**
-
-<br>
+**Case Question: What is the probability of a loan default?**
 
 ## ACQUIRE
 
@@ -65,7 +61,7 @@ import pandas as pd
 import warnings
 warnings.filterwarnings('ignore')
 
-# Load the data
+# Load the data and see head
 data = pd.read_csv("loan.csv") 
 data.head()
 ```
@@ -168,8 +164,6 @@ data.head()
 - **amount** : amount of loan requested by the applicant
 - **grade**: credit grade of the applicant
 
-<br>
-
 ## REFINE
 
 > "Data is messy"
@@ -215,29 +209,22 @@ In our case, let's replace missing values for years with mean
 
 
 ```python
-# There's a fillna function
-data.years = data.years.fillna(np.mean(data.years))
-data.years.unique()
+# Let us replace the NaNs with mean for years
+np.mean(data.years)
 ```
 
 
 
 
-    array([  2.       ,   3.       ,   1.       ,   6.       ,   4.       ,
-             0.       ,  16.       ,  12.       ,  11.       ,  15.       ,
-             6.0863319,  18.       ,   8.       ,   7.       ,  34.       ,
-             9.       ,  14.       ,   5.       ,  10.       ,  20.       ,
-            26.       ,  19.       ,  24.       ,  61.       ,  27.       ,
-            21.       ,  13.       ,  30.       ,  23.       ,  22.       ,
-            31.       ,  25.       ,  17.       ,  38.       ,  28.       ,
-            29.       ,  56.       ,  47.       ,  45.       ,  43.       ,
-            32.       ,  33.       ,  36.       ,  40.       ,  44.       ,
-            53.       ,  41.       ,  55.       ,  62.       ,  48.       ,
-            37.       ,  35.       ])
+    6.086331901181545
 
 
 
-<br>
+
+```python
+# There is a fillna function for missing data
+data.years = data.years.fillna(np.mean(data.years))
+```
 
 ## EXPLORE
 
@@ -245,10 +232,10 @@ data.years.unique()
 
 ### Data Types
 
-**Categorical**
+- **Categorical**
    - *Nominal*: home owner [rent, own, mortgage] 
    - *Ordinal*: credit grade [A > B > C > D > E]
-**Continuous**
+- **Continuous**
     - *Interval*: approval date  [20/04/16, 19/11/15]
     - *Ratio*: loan amount [3000, 10000]
 
@@ -271,30 +258,33 @@ data_plot['default'] = data_plot['default'].astype('category')
 
 ### Two Dimension Exploration 
 
-Let us see the relationship between `grade` and `default`
+We expect the default rate to go up as the credit score of the customers go down.
 
 
 ```python
-ggplot(data_plot) + aes('grade', fill ="default") + geom_bar(position = 'fill') + theme_538()
+# Let's see the relationship between `grade` and `default`
+(ggplot(data_plot) + aes('grade', fill ="default") + 
+   geom_bar(position = 'fill') + theme_538())
 ```
 
 
-![png](notebook_files/notebook_13_0.png)
+![png](notebook_files/notebook_14_0.png)
 
 
 
 
 
-    <ggplot: (-9223372036555035420)>
+    <ggplot: (287573182)>
 
 
 
 ### Three Dimension Exploration 
 
-Let us see the relationship between `age`, `income` and `default`
+We would like to understand what impact does age and income have on the default rate
 
 
 ```python
+# Let us see the relationship between `age`, `income` and `default`
 ( ggplot(data_plot) + aes('age', 'income', color='default') + 
     geom_bin2d() + scale_y_log10() +
     facet_wrap("default") + theme_538()
@@ -302,13 +292,13 @@ Let us see the relationship between `age`, `income` and `default`
 ```
 
 
-![png](notebook_files/notebook_15_0.png)
+![png](notebook_files/notebook_16_0.png)
 
 
 
 
 
-    <ggplot: (301954017)>
+    <ggplot: (-9223372036562514793)>
 
 
 
@@ -478,7 +468,7 @@ Given a set of **feature** `X`, to predict the value of **target** `y`
 3. Model complexity
 4. Scalability
 
-** Lets build tree-based classifier - Decision Tree & Random Forest **
+Lets build two tree-based classifier - Decision Tree & Random Forest
 
 
 ```python
@@ -515,35 +505,43 @@ clf_forest = RandomForestClassifier(n_estimators=40)
 prediction_forest = prediction(clf_forest, X, y)
 ```
 
-
-```python
-ggplot(prediction_tree) + aes('probability', fill='actual') + geom_density(alpha = 0.5)
-```
-
-
-![png](notebook_files/notebook_24_0.png)
-
-
-
-
-
-    <ggplot: (302579418)>
-
-
+Let us see how well the classifiers are performing in separating the two classes
 
 
 ```python
-ggplot(prediction_forest) + aes('probability', fill='actual') + geom_density(alpha = 0.5)
+# Plotting predicted probability vs actuals for Decision Tree Classifier
+(ggplot(prediction_tree) + aes('probability', fill='actual') + 
+    geom_density(alpha = 0.5) + theme_538()
+)
 ```
 
 
-![png](notebook_files/notebook_25_0.png)
+![png](notebook_files/notebook_26_0.png)
 
 
 
 
 
-    <ggplot: (-9223372036552196373)>
+    <ggplot: (287596506)>
+
+
+
+
+```python
+# Plotting predicted probability vs actuals for Random Forest Classifier
+(ggplot(prediction_forest) + aes('probability', fill='actual') + 
+    geom_density(alpha = 0.5) + theme_538()
+)
+```
+
+
+![png](notebook_files/notebook_27_0.png)
+
+
+
+
+
+    <ggplot: (297470205)>
 
 
 
@@ -570,6 +568,7 @@ We will use `StratifiedKFold`. This ensures that in each fold, the proportion of
 
 
 ```python
+# Load the libraries
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import roc_curve
 from sklearn.model_selection import StratifiedKFold
@@ -577,6 +576,7 @@ from sklearn.model_selection import StratifiedKFold
 
 
 ```python
+# Setup a function to conduct cross-validation
 def cross_validation(clf, X, y, k):
     
     # Instantiate stratified k fold.
@@ -602,12 +602,12 @@ def cross_validation(clf, X, y, k):
 cross_validation(clf_tree, X, y, 5)
 ```
 
-    0.617900375562
-    0.631621789283
-    0.643411054439
-    0.702457381546
-    0.692121336257
-    Mean K Fold CV: 0.657502387417
+    0.617060391657
+    0.625253168802
+    0.640463774734
+    0.700975766998
+    0.693959713515
+    Mean K Fold CV: 0.655542563141
 
 
 
@@ -616,12 +616,12 @@ cross_validation(clf_tree, X, y, 5)
 cross_validation(clf_forest, X, y, 5)
 ```
 
-    0.697120414459
-    0.686950070418
-    0.711621566264
-    0.769951849626
-    0.788945056864
-    Mean K Fold CV: 0.730917791526
+    0.706651130038
+    0.693451143451
+    0.714013975025
+    0.773072893757
+    0.792275121971
+    Mean K Fold CV: 0.735892852848
 
 
 ## DEPLOY 
