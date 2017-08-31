@@ -52,15 +52,15 @@ ol, ul {
 
 li { padding: 0.5rem 0; }
 
-p, pre, code, table{
+p, code, table{
  width: 65%;
 }
 
 
 pre {
 white-space: pre-wrap;
-background-color: #222;
-color: whitesmoke;
+/* background-color: #222;
+color: whitesmoke; */
 padding: 0.5rem;
 }
 

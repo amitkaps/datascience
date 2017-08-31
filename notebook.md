@@ -285,7 +285,7 @@ ggplot(data_plot) + aes('grade', fill ="default") + geom_bar(position = 'fill') 
 
 
 
-    <ggplot: (288454997)>
+    <ggplot: (-9223372036555035420)>
 
 
 
@@ -308,7 +308,7 @@ Let us see the relationship between `age`, `income` and `default`
 
 
 
-    <ggplot: (-9223372036564109070)>
+    <ggplot: (301954017)>
 
 
 
@@ -478,7 +478,7 @@ Given a set of **feature** `X`, to predict the value of **target** `y`
 3. Model complexity
 4. Scalability
 
-** Lets build a tree-based classifier - Decision Tree & Random Forest **
+** Lets build tree-based classifier - Decision Tree & Random Forest **
 
 
 ```python
@@ -515,25 +515,19 @@ clf_forest = RandomForestClassifier(n_estimators=40)
 prediction_forest = prediction(clf_forest, X, y)
 ```
 
-## INSIGHT
-
-How do we select a model 
-- Lowest error on unseen data
-- Cross Validation
-
 
 ```python
 ggplot(prediction_tree) + aes('probability', fill='actual') + geom_density(alpha = 0.5)
 ```
 
 
-![png](notebook_files/notebook_25_0.png)
+![png](notebook_files/notebook_24_0.png)
 
 
 
 
 
-    <ggplot: (291291077)>
+    <ggplot: (302579418)>
 
 
 
@@ -543,17 +537,26 @@ ggplot(prediction_forest) + aes('probability', fill='actual') + geom_density(alp
 ```
 
 
-![png](notebook_files/notebook_26_0.png)
+![png](notebook_files/notebook_25_0.png)
 
 
 
 
 
-    <ggplot: (291290923)>
+    <ggplot: (-9223372036552196373)>
 
 
 
-### Cross Validation
+## INSIGHT
+
+> "The purpose of data science is to create insight"
+
+While we have created many model, we still don't have a *measure* of how good each of the model is and which one should we pick. We need to measure some accuracy metric of the model and have confidence that it will generalize well. We should be confident that when we put the model in production (real-life), the accuracy we get from the model results should mirror the metrics we obtained when we built the model.
+
+- Choosing an Error Metric: `Area Under Curve`
+- Cross Validation: How well will the model generalize on unseen data
+
+### Cross Validation using AUC
 
 We will use `StratifiedKFold`. This ensures that in each fold, the proportion of positive class and negative class remain similar to the original dataset. This is the process we will follow to get the mean cv-score
 
@@ -564,18 +567,6 @@ We will use `StratifiedKFold`. This ensures that in each fold, the proportion of
 5. Append it to the array
 6. Repeat 2-5 for different validation folds
 7. Report the mean cross validation score
-
-
-```python
-y.unique()
-```
-
-
-
-
-    array([0, 1])
-
-
 
 
 ```python
@@ -611,12 +602,12 @@ def cross_validation(clf, X, y, k):
 cross_validation(clf_tree, X, y, 5)
 ```
 
-    0.621181510294
-    0.629746495876
-    0.641403109964
-    0.703596503893
-    0.687536305852
-    Mean K Fold CV: 0.656692785176
+    0.617900375562
+    0.631621789283
+    0.643411054439
+    0.702457381546
+    0.692121336257
+    Mean K Fold CV: 0.657502387417
 
 
 
@@ -625,27 +616,33 @@ cross_validation(clf_tree, X, y, 5)
 cross_validation(clf_forest, X, y, 5)
 ```
 
-    0.699469351485
-    0.682816377171
-    0.712084098624
-    0.775462784193
-    0.797661819171
-    Mean K Fold CV: 0.733498886129
+    0.697120414459
+    0.686950070418
+    0.711621566264
+    0.769951849626
+    0.788945056864
+    Mean K Fold CV: 0.730917791526
 
 
 ## DEPLOY 
 
-Deploy - the ML API
+> "What you build - you test, you ship and you maintain"
+
+Once the final model has been selected, we need to ensure that other data application can access the model and use it in their process. This requires us to do two important tasks.
+
+- Serialising the Model (e.g. `pickle`)
+- Serving the ML Model as a Service 
+
 
 
 ```python
-# Build the model
-loan_default_model = RandomForestClassifier(n_estimators=10).fit(X, y)
+# Build the final model
+loan_default_model = RandomForestClassifier(n_estimators=40).fit(X, y)
 ```
 
-### Model serialization
+### Model Serialization
 
-We need to serialize the model and the label encoders. 
+We will need to serialize both the model and the encoders used to create them
 
 
 ```python
@@ -656,6 +653,14 @@ joblib.dump(loan_default_model, "loan_default_model.pkl")
 joblib.dump(le_grade, "le_grade.pkl")
 joblib.dump(le_ownership, "le_ownership.pkl");
 ```
+
+### ML as a service 
+
+While we can package the model with the application and use it, it created tight coupling between the two. Everytime the model changes, the application will have to change. What if there are more than one application using the same model? 
+
+It is lot simpler to deploy the ML model as a service exposing it's functionality through an HTTP API.
+
+In this turorial we are going to use a tool called firefly for running the model as a service.
 
 
 ```python
@@ -689,13 +694,22 @@ def predict(amount, years, age, ownership, income, grade):
     Overwriting loan_default_api.py
 
 
+### Start the ML Service 
 Run the following command in your terminal 
 
      firefly loan_default_api.predict
+     
+<br>
 
 ## BUILD 
 
-Get prediction using API
+> "The role of data scientist is to build a data-driven product
+
+Now that we have a prediction API, this can be consumed as part of many applications to provide insight and help in decision making.
+
+- Dashboards 
+- Web / Mobile Application 
+- IoT Applications
 
 
 ```python
@@ -713,14 +727,33 @@ loan_default_api.predict(amount=100000, years=2, age=35, ownership='RENT', incom
 
 
 
-    0.1
+    0.425
 
 
 
 
 ```python
-
+loan_default_api.predict(amount=100000, years=2, age=35, ownership='RENT', income=12345, grade='G')
 ```
+
+
+
+
+    0.7
+
+
+
+
+```python
+loan_default_api.predict(amount=100, years=2, age=35, ownership='RENT', income=12345, grade='G')
+```
+
+
+
+
+    0.65
+
+
 
 
 ```python
