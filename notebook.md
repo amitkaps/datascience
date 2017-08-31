@@ -9,15 +9,13 @@
 - Understand the end-to-end approach
 - Build a data-driven Machine Learning application on the cloud
 
-#### For code, go to [https://github.com/amitkaps/datascience](https://github.com/amitkaps/datascience)
+*For code for this book, go to [https://github.com/amitkaps/datascience](https://github.com/amitkaps/datascience)*
 
 ** Our approach ** is to take a case-driven example to showcase this. And we will aim to go-wide vs. go-deep to do so. The approach will be both practical and scalable. Lets start by understanding the overall steps involved in building a data-driven application.
 
 
-
 ![The Art of DataScience Process](static/datascience.svg)
 
-<br>
 
 ## FRAME 
 
@@ -216,7 +214,7 @@ np.mean(data.years)
 
 
 
-    6.086331901181545
+    6.086331901181525
 
 
 
@@ -274,7 +272,7 @@ We expect the default rate to go up as the credit score of the customers go down
 
 
 
-    <ggplot: (287573182)>
+    <ggplot: (296569159)>
 
 
 
@@ -298,7 +296,7 @@ We would like to understand what impact does age and income have on the default 
 
 
 
-    <ggplot: (-9223372036562514793)>
+    <ggplot: (-9223372036556016545)>
 
 
 
@@ -522,7 +520,7 @@ Let us see how well the classifiers are performing in separating the two classes
 
 
 
-    <ggplot: (287596506)>
+    <ggplot: (-9223372036555365660)>
 
 
 
@@ -541,7 +539,7 @@ Let us see how well the classifiers are performing in separating the two classes
 
 
 
-    <ggplot: (297470205)>
+    <ggplot: (-9223372036555835574)>
 
 
 
@@ -598,30 +596,30 @@ def cross_validation(clf, X, y, k):
 
 
 ```python
-# Lets get the cross-validation score for Decision Tree
+# Lets get the cross-validation score for Decision Tree Classifier
 cross_validation(clf_tree, X, y, 5)
 ```
 
-    0.617060391657
-    0.625253168802
-    0.640463774734
-    0.700975766998
-    0.693959713515
-    Mean K Fold CV: 0.655542563141
+    0.616927939105
+    0.628056468379
+    0.645746381167
+    0.703180980266
+    0.689194203152
+    Mean K Fold CV: 0.656621194414
 
 
 
 ```python
-# Lets get the cross-validation score for Random Forest
+# Lets get the cross-validation score for Random Forest Classifier
 cross_validation(clf_forest, X, y, 5)
 ```
 
-    0.706651130038
-    0.693451143451
-    0.714013975025
-    0.773072893757
-    0.792275121971
-    Mean K Fold CV: 0.735892852848
+    0.693877003554
+    0.682467641339
+    0.715824650708
+    0.767269833488
+    0.800936481128
+    Mean K Fold CV: 0.732075122043
 
 
 ## DEPLOY 
@@ -636,7 +634,7 @@ Once the final model has been selected, we need to ensure that other data applic
 
 
 ```python
-# Build the final model
+# Build the selected model
 loan_default_model = RandomForestClassifier(n_estimators=40).fit(X, y)
 ```
 
@@ -716,11 +714,13 @@ Now that we have a prediction API, this can be consumed as part of many applicat
 # Load the libaries
 from firefly.client import Client
 
+# Access the predict function from the jupyter notebook
 loan_default_api = Client("http://127.0.0.1:8000")
 ```
 
 
 ```python
+# Example 1
 loan_default_api.predict(amount=100000, years=2, age=35, ownership='RENT', income=12345, grade='A')
 ```
 
@@ -733,6 +733,7 @@ loan_default_api.predict(amount=100000, years=2, age=35, ownership='RENT', incom
 
 
 ```python
+# Example 2
 loan_default_api.predict(amount=100000, years=2, age=35, ownership='RENT', income=12345, grade='G')
 ```
 
@@ -745,6 +746,7 @@ loan_default_api.predict(amount=100000, years=2, age=35, ownership='RENT', incom
 
 
 ```python
+# Example 3
 loan_default_api.predict(amount=100, years=2, age=35, ownership='RENT', income=12345, grade='G')
 ```
 
