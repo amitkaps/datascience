@@ -59,6 +59,9 @@ p, pre, code, table{
 
 pre {
 white-space: pre-wrap;
+background-color: #222;
+color: whitesmoke;
+padding: 0.5rem;
 }
 
 blockquote { 
