@@ -9,45 +9,15 @@
 - Understand the end-to-end approach
 - Build a data-driven Machine Learning application on the cloud
 
-##### For code, go to [https://github.com/amitkaps/MLcloud](https://github.com/amitkaps/MLcloud)
+##### For code, go to [https://github.com/amitkaps/datascience](https://github.com/amitkaps/datascience)
 
-** Our approach ** is to take a case-driven example to showcase this. And we will aim to go-wide vs. go-deep to do so. The approach will be both practical and scalable.
-
+** Our approach ** is to take a case-driven example to showcase this. And we will aim to go-wide vs. go-deep to do so. The approach will be both practical and scalable. Lets start by understanding the overall steps involved in building a data-driven application.
 
 <br>
 
-## INTRO
 
 
-Lets start by understanding the overall approach for doing so.
-
-
-```
-
-                FRAME  ——> ACQUIRE  ——> REFINE ——>  
-                                                  \
-                                                TRANSFORM <——
-                                                    ↑          ↘  
-                                                    |        EXPLORE
-                                                    ↓          ↗
-                                                  MODEL   <——
-                                                  /      
-                BUILD <—— DEPLOY <—— INSIGHT <—— 
-
-
-```
-<br>
-
-
-- **FRAME**: Problem definition
-- **ACQUIRE**: Data ingestion 
-- **REFINE**: Data wrangling
-- **TRANSFORM**: Feature creation 
-- **EXPLORE**: Feature selection 
-- **MODEL**: Model creation
-- **INSIGHT**: Model selection
-- **DEPLOY**: Model deployment
-- **BUILD**: Application building
+![The Art of DataScience Process](static/datascience.svg)
 
 <br>
 
@@ -275,16 +245,16 @@ data.years.unique()
 
 ### Data Types
 
-- **Categorical**
-    - *Nominal*: home owner [rent, own, mortgage] 
-    - *Ordinal*: credit grade [A > B > C > D > E]
-- **Continuous**
+**Categorical**
+   - *Nominal*: home owner [rent, own, mortgage] 
+   - *Ordinal*: credit grade [A > B > C > D > E]
+**Continuous**
     - *Interval*: approval date  [20/04/16, 19/11/15]
     - *Ratio*: loan amount [3000, 10000]
 
 ### Visual Exploration
-- Explore **One dimension visualisation** - Quantitative, Categorical
-- Explore **Two dimensions visualiation  graphs** - (Q & Q, Q & C, C & C)
+- Explore **One dimension visualisation**
+- Explore **Two dimensions visualiation**
 - Explore **Multi dimensionsal visualisation**
 
 
@@ -309,7 +279,7 @@ ggplot(data_plot) + aes('grade', fill ="default") + geom_bar(position = 'fill') 
 ```
 
 
-![png](notebook_files/notebook_14_0.png)
+![png](notebook_files/notebook_13_0.png)
 
 
 
@@ -332,7 +302,7 @@ Let us see the relationship between `age`, `income` and `default`
 ```
 
 
-![png](notebook_files/notebook_16_0.png)
+![png](notebook_files/notebook_15_0.png)
 
 
 
@@ -557,7 +527,7 @@ ggplot(prediction_tree) + aes('probability', fill='actual') + geom_density(alpha
 ```
 
 
-![png](notebook_files/notebook_26_0.png)
+![png](notebook_files/notebook_25_0.png)
 
 
 
@@ -573,7 +543,7 @@ ggplot(prediction_forest) + aes('probability', fill='actual') + geom_density(alp
 ```
 
 
-![png](notebook_files/notebook_27_0.png)
+![png](notebook_files/notebook_26_0.png)
 
 
 
