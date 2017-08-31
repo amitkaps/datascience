@@ -15,7 +15,7 @@ body {
   padding-bottom: 5rem;
   font-family: "Palatino", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   background-color: whitesmoke;
-  color: #111;
+  color: black;
   /* max-width: 1400px; */
   text-rendering: optimizeLegibility;
 }
@@ -48,7 +48,7 @@ h3 {
 }
 
 h4, h5 { 
-  font-family: Consolas, Menlo, Courier, monospace;  
+  font-family: "Fira Code", "Fira Mono", "DejaVu Sans Mono", Menlo, Consolas, "Liberation Mono", "Lucida Console", monospace;
   font-style: normal; 
   font-weight: normal;
   font-size: 0.8rem;
@@ -102,14 +102,15 @@ li {
 }
 
 pre {
+  font-family: "Fira Code", "Fira Mono", "DejaVu Sans Mono", Menlo, Consolas, "Liberation Mono", "Lucida Console", monospace;
   white-space: pre-wrap;
   margin-left: 2.5%;
   padding-bottom: 0.5rem;
 }
 
 code {
-  font-family: Consolas, Menlo, Courier, monospace;
-  font-size: 0.7rem;
+  font-family: "Fira Code", "Fira Mono", "DejaVu Sans Mono", Menlo, Consolas, "Liberation Mono", "Lucida Console", monospace;  
+  font-size: 0.8rem;
   line-height: 1.4;
 }
 
@@ -120,7 +121,7 @@ img, svg {
 
 
 table {
- font-family: Consolas, Menlo, Courier, monospace;
+ font-family: "Fira Code", "Fira Mono", "DejaVu Sans Mono", Menlo, Consolas, "Liberation Mono", "Lucida Console", monospace;
  font-size: 0.7rem;
  border: 0;
  border-collapse: collapse; 
@@ -153,7 +154,7 @@ tbody {
     position: relative;
   }
   th, td {
-    padding: 0.3rem 0.5rem;
+    padding: 0.3rem 0.6rem;
   }
 
 @media (min-width: 56em) {
