@@ -50,7 +50,7 @@ The first step is to create a virtual environment. It is always a good practice 
     $ cd datascience
     $ virtualenv mlcloud   # mlcloud is the name of the virtual environment
 
-    $ source mlcoud/bin/activate    # activate the virtual environment
+    $ source mlcloud/bin/activate    # activate the virtual environment
 
 Now, the required libraries need to be installed. The libraries needed for the session are listed at requirements.txt.
 
